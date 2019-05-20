@@ -20,9 +20,9 @@ import java.util.concurrent.TimeUnit;
  *
  * @author xuxueli 2015-12-19 19:43:36
  */
-@JobHandler(value="demoJobHandler")
+@JobHandler(value="simpleJobHandler")
 @Component
-public class DemoJobHandler extends IJobHandler {
+public class SimpleJobHandler extends IJobHandler {
 
 	@Override
 	public ReturnT<String> execute(String param) throws Exception {
