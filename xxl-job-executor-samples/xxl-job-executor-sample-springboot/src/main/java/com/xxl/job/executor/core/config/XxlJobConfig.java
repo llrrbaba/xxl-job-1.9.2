@@ -30,8 +30,8 @@ public class XxlJobConfig {
     @Value("${xxl.job.executor.port}")
     private int port;
 
-    @Value("${xxl.job.accessToken}")
-    private String accessToken;
+//    @Value("${xxl.job.accessToken}")
+//    private String accessToken;
 
     @Value("${xxl.job.executor.logpath}")
     private String logPath;
@@ -48,7 +48,7 @@ public class XxlJobConfig {
         xxlJobExecutor.setAppName(appName);
         xxlJobExecutor.setIp(ip);
         xxlJobExecutor.setPort(port);
-        xxlJobExecutor.setAccessToken(accessToken);
+//        xxlJobExecutor.setAccessToken(accessToken);
         xxlJobExecutor.setLogPath(logPath);
         xxlJobExecutor.setLogRetentionDays(logRetentionDays);
 
