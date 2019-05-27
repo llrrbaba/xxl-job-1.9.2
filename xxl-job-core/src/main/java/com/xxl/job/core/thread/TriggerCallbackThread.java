@@ -9,11 +9,13 @@ import com.xxl.job.core.log.XxlJobFileAppender;
 import com.xxl.job.core.log.XxlJobLogger;
 import com.xxl.job.core.util.FileUtil;
 import com.xxl.job.core.util.JacksonUtil;
+import org.apache.commons.codec.binary.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -63,8 +65,9 @@ public class TriggerCallbackThread {
                 while(!toStop){
                     try {
                         HandleCallbackParam callback = getInstance().callBackQueue.take();
-                        if (callback != null) {
 
+                        if (callback != null) {
+                            logger.info(">>>>>>>>>>> xxl-job, HandleCallbackParam:{}",callback);
                             // callback list param
                             List<HandleCallbackParam> callbackParamList = new ArrayList<HandleCallbackParam>();
                             int drainToNum = getInstance().callBackQueue.drainTo(callbackParamList);
@@ -85,6 +88,7 @@ public class TriggerCallbackThread {
                     List<HandleCallbackParam> callbackParamList = new ArrayList<HandleCallbackParam>();
                     int drainToNum = getInstance().callBackQueue.drainTo(callbackParamList);
                     if (callbackParamList!=null && callbackParamList.size()>0) {
+                        logger.info(">>>>>>>>>>> xxl-job, callbackParamList:{}",callbackParamList);
                         doCallback(callbackParamList);
                     }
                 } catch (Exception e) {
