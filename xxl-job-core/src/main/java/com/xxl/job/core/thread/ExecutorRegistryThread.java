@@ -51,7 +51,10 @@ public class ExecutorRegistryThread extends Thread {
                 // registry
                 while (!toStop) {
                     try {
-                        RegistryParam registryParam = new RegistryParam(RegistryConfig.RegistType.EXECUTOR.name(), appName, executorAddress);
+                        RegistryParam registryParam = new RegistryParam(RegistryConfig.RegistType.EXECUTOR.name(),
+                                                                        appName, executorAddress);
+                        logger.info(">>>>>>>>>>> xxl-job registry, XxlJobExecutor.getAdminBizList().size():{}",
+                                XxlJobExecutor.getAdminBizList().size());
                         for (AdminBiz adminBiz: XxlJobExecutor.getAdminBizList()) {
                             try {
                                 ReturnT<String> registryResult = adminBiz.registry(registryParam);
@@ -80,16 +83,21 @@ public class ExecutorRegistryThread extends Thread {
 
                 // registry remove
                 try {
-                    RegistryParam registryParam = new RegistryParam(RegistryConfig.RegistType.EXECUTOR.name(), appName, executorAddress);
+                    RegistryParam registryParam = new RegistryParam(RegistryConfig.RegistType.EXECUTOR.name(),
+                                                                    appName, executorAddress);
+                    logger.info(">>>>>>>>>>> xxl-job registry-remove, XxlJobExecutor.getAdminBizList().size():{}",
+                            XxlJobExecutor.getAdminBizList().size());
                     for (AdminBiz adminBiz: XxlJobExecutor.getAdminBizList()) {
                         try {
                             ReturnT<String> registryResult = adminBiz.registryRemove(registryParam);
                             if (registryResult!=null && ReturnT.SUCCESS_CODE == registryResult.getCode()) {
                                 registryResult = ReturnT.SUCCESS;
-                                logger.info(">>>>>>>>>>> xxl-job registry-remove success, registryParam:{}, registryResult:{}", new Object[]{registryParam, registryResult});
+                                logger.info(">>>>>>>>>>> xxl-job registry-remove success, registryParam:{}, registryResult:{}",
+                                        new Object[]{registryParam, registryResult});
                                 break;
                             } else {
-                                logger.info(">>>>>>>>>>> xxl-job registry-remove fail, registryParam:{}, registryResult:{}", new Object[]{registryParam, registryResult});
+                                logger.info(">>>>>>>>>>> xxl-job registry-remove fail, registryParam:{}, registryResult:{}",
+                                        new Object[]{registryParam, registryResult});
                             }
                         } catch (Exception e) {
                             logger.info(">>>>>>>>>>> xxl-job registry-remove error, registryParam:{}", registryParam, e);
