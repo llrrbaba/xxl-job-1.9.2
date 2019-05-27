@@ -108,7 +108,7 @@ public class JobThread extends Thread{
             TriggerParam triggerParam = null;
             ReturnT<String> executeResult = null;
             try {
-				// to check toStop signal, we need cycle, so wo cannot use queue.take(), instand of poll(timeout)
+				// to check toStop signal, we need cycle, so wo cannot use queue.take(), instead of poll(timeout)
 				triggerParam = triggerQueue.poll(3L, TimeUnit.SECONDS);
 				if (triggerParam!=null) {
 					running = true;
@@ -116,9 +116,11 @@ public class JobThread extends Thread{
 					triggerLogIdSet.remove(triggerParam.getLogId());
 
 					// log filename, like "logPath/yyyy-MM-dd/9999.log"
-					String logFileName = XxlJobFileAppender.makeLogFileName(new Date(triggerParam.getLogDateTim()), triggerParam.getLogId());
+					String logFileName = XxlJobFileAppender.makeLogFileName(
+							new Date(triggerParam.getLogDateTim()), triggerParam.getLogId());
 					XxlJobFileAppender.contextHolder.set(logFileName);
-					ShardingUtil.setShardingVo(new ShardingUtil.ShardingVO(triggerParam.getBroadcastIndex(), triggerParam.getBroadcastTotal()));
+					ShardingUtil.setShardingVo(new ShardingUtil.ShardingVO(
+							triggerParam.getBroadcastIndex(), triggerParam.getBroadcastTotal()));
 
 					// execute
 					XxlJobLogger.log("<br>----------- xxl-job job execute start -----------<br>----------- Param:" + triggerParam.getExecutorParams());
